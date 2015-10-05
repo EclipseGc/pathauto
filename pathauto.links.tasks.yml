@@ -1,0 +1,20 @@
+pathauto.patterns:
+  route_name: pathauto.patterns
+  title: Patterns
+  base_route: path.admin_overview
+  weight: 10
+pathauto.settings:
+  route_name: pathauto.settings
+  title: Settings
+  base_route: path.admin_overview
+  weight: 20
+pathauto.bulk:
+  route_name: pathauto.bulk
+  title: 'Bulk Generate'
+  base_route: path.admin_overview
+  weight: 30
+pathauto.bulk_delete:
+  route_name: pathauto.bulk_delete
+  title: 'Delete aliases'
+  base_route: path.admin_overview
+  weight: 40

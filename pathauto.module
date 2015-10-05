@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
  * @defgroup pathauto Pathauto: Automatically generates aliases for content
  *
@@ -39,9 +41,9 @@ function pathauto_hook_info() {
 /**
  * Implements hook_help().
  */
-function pathauto_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#pathauto':
+function pathauto_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.pathauto':
       module_load_include('inc', 'pathauto');
       $output = '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Provides a mechanism for modules to automatically generate aliases for the content they manage.') . '</p>';
@@ -51,7 +53,7 @@ function pathauto_help($path, $arg) {
       $output .= '<dd>' . t('The <strong>maximum alias length</strong> and <strong>maximum component length</strong> values default to 100 and have a limit of @max from Pathauto. This length is limited by the length of the "alias" column of the url_alias database table. The default database schema for this column is @max. If you set a length that is equal to that of the one set in the "alias" column it will cause problems in situations where the system needs to append additional words to the aliased URL. You should enter a value that is the length of the "alias" column minus the length of any strings that might get added to the end of the URL. The length of strings that might get added to the end of your URLs depends on which modules you have enabled and on your Pathauto settings. The recommended and default value is 100.', array('@max' => _pathauto_get_schema_alias_maxlength())) . '</dd>';
       $output .= '</dl>';
       return $output;
-    case 'admin/config/search/path/update_bulk':
+    case 'pathauto.bulk':
       $output = '<p>' . t('Bulk generation will only generate URL aliases for items that currently have no aliases. This is typically used when installing Pathauto on a site that has existing un-aliased content that needs to be aliased in bulk.') . '</p>';
       return $output;
   }
@@ -71,50 +73,6 @@ function pathauto_permission() {
       'description' => t('Determines whether or not users are notified.'),
     ),
   );
-}
-
-/**
- * Implements hook_menu().
- */
-function pathauto_menu() {
-  $items['admin/config/search/path/patterns'] = array(
-    'title' => 'Patterns',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('pathauto_patterns_form'),
-    'access arguments' => array('administer pathauto'),
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 10,
-    'file' => 'pathauto.admin.inc',
-  );
-  $items['admin/config/search/path/settings'] = array(
-    'title' => 'Settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('pathauto_settings_form'),
-    'access arguments' => array('administer pathauto'),
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 20,
-    'file' => 'pathauto.admin.inc',
-  );
-  $items['admin/config/search/path/update_bulk'] = array(
-    'title' => 'Bulk generate',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('pathauto_bulk_update_form'),
-    'access arguments' => array('administer url aliases'),
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 30,
-    'file' => 'pathauto.admin.inc',
-  );
-  $items['admin/config/search/path/delete_bulk'] = array(
-    'title' => 'Delete aliases',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('pathauto_admin_delete'),
-    'access arguments' => array('administer url aliases'),
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 40,
-    'file' => 'pathauto.admin.inc',
-  );
-
-  return $items;
 }
 
 /**
