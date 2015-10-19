@@ -14,41 +14,57 @@
 
 /**
  * Case should be left as is in the generated path.
+ *
+ * @deprecated
  */
 define('PATHAUTO_CASE_LEAVE_ASIS', 0);
 
 /**
  * Case should be lowercased in the generated path.
+ *
+ * @deprecated
  */
 define('PATHAUTO_CASE_LOWER', 1);
 
 /**
  * "Do nothing. Leave the old alias intact."
+ *
+ * @deprecated
  */
 define('PATHAUTO_UPDATE_ACTION_NO_NEW', 0);
 
 /**
  * "Create a new alias. Leave the existing alias functioning."
+ *
+ * @deprecated
  */
 define('PATHAUTO_UPDATE_ACTION_LEAVE', 1);
 
 /**
  * "Create a new alias. Delete the old alias."
+ *
+ * @deprecated
  */
 define('PATHAUTO_UPDATE_ACTION_DELETE', 2);
 
 /**
  * Remove the punctuation from the alias.
+ *
+ * @deprecated
  */
 define('PATHAUTO_PUNCTUATION_REMOVE', 0);
 
 /**
  * Replace the punctuation with the separator in the alias.
+ *
+ * @deprecated
  */
 define('PATHAUTO_PUNCTUATION_REPLACE', 1);
 
 /**
  * Leave the punctuation as it is in the alias.
+ *
+ * @deprecated
  */
 define('PATHAUTO_PUNCTUATION_DO_NOTHING', 2);
 
@@ -117,6 +133,8 @@ function _pathauto_existing_alias_data($source, $language = LANGUAGE_NONE) {
  *
  * @return string
  *   The cleaned string.
+ *
+ * @deprecated
  */
 function pathauto_cleanstring($string, array $options = array()) {
   // Use the advanced drupal_static() pattern, since this is called very often.
@@ -635,9 +653,11 @@ function pathauto_clean_token_values(&$replacements, $data = array(), $options =
  * the value and a textual description.
  * Can and should be expanded to include "all" non text punctuation values.
  *
- * @return
+ * @return array
  *   An array of arrays for punctuation values keyed by a name, including the
  *   value and a textual description.
+ *
+ * @deprecated
  */
 function pathauto_punctuation_chars() {
   $punctuation = &drupal_static(__FUNCTION__);
@@ -696,6 +716,8 @@ function pathauto_punctuation_chars() {
  *
  * @return
  *   An integer of the maximum URL alias length allowed by the database.
+ *
+ * @deprecated
  */
 function _pathauto_get_schema_alias_maxlength() {
   $maxlength = &drupal_static(__FUNCTION__);
